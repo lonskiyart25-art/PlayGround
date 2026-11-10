@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#101a20"><title>LAST LIGHT // City Survival</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--ink:#e7f2eb;--muted:#93a8a2;--lime:#c8f169;--red:#ff665e;--cyan:#76e3dc;--panel:rgba(13,25,29,.84)}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101a20;color:var(--ink);font-family:'Space Grotesk',sans-serif}canvas{display:block;width:100vw;height:100vh;touch-action:none}.scan{position:fixed;inset:0;pointer-events:none;z-index:2;background:repeating-linear-gradient(0deg,transparent 0px,rgba(218,255,234,.018) 1px,transparent 2px,transparent 5px);mix-blend-mode:screen;opacity:.5}.vignette{position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse at center,transparent 45%,rgba(1,9,13,.4) 100%)}.hud{position:fixed;inset:0;pointer-events:none;z-index:3}.topbar{position:absolute;top:24px;left:28px;display:flex;align-items:center;gap:12px}.brandmark{width:34px;height:34px;border:1px solid var(--lime);display:grid;place-items:center;color:var(--lime);font:500 13px 'DM Mono';transform:rotate(45deg)}.brandmark span{transform:rotate(-45deg)}.brand{font-weight:700;letter-spacing:.15em;font-size:12px}.brand small{display:block;margin-top:3px;color:var(--muted);font:10px 'DM Mono';letter-spacing:.13em}.righttop{position:absolute;top:26px;right:28px;display:flex;gap:8px;align-items:center}.chip{padding:9px 12px;border:1px solid rgba(220,245,232,.16);background:var(--panel);font:10px 'DM Mono';letter-spacing:.1em;color:var(--muted);backdrop-filter:blur(10px)}.chip b{color:var(--ink);font-weight:500}.objective{position:absolute;left:28px;top:100px;padding:13px 15px;border-left:2px solid var(--lime);background:linear-gradient(90deg,rgba(15,27,30,.8),transparent);min-width:220px}.eyebrow{font:9px 'DM Mono';letter-spacing:.2em;color:var(--lime);text-transform:uppercase}.objective strong{display:block;font-size:14px;margin-top:5px;font-weight:600}.objective small{display:block;color:var(--muted);font:10px 'DM Mono';margin-top:5px}.stats{position:absolute;left:28px;bottom:28px;width:220px;background:var(--panel);border:1px solid rgba(220,245,232,.13);padding:14px 15px;backdrop-filter:blur(10px)}.statrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font:10px 'DM Mono';letter-spacing:.08em;color:var(--muted)}.statrow strong{color:var(--ink);font-weight:500}.meter{height:5px;background:#28383a;margin-bottom:11px;overflow:hidden}.fill{height:100%;width:100%;transition:width .15s;background:var(--lime)}.fill.health{background:var(--red)}.stats .statrow:last-of-type{margin-bottom:5px}.modecard{position:absolute;right:28px;bottom:28px;text-align:right;padding:13px 15px;background:var(--panel);border:1px solid rgba(220,245,232,.13);min-width:190px;backdrop-filter:blur(10px)}.modecard strong{display:block;font:12px 'DM Mono';letter-spacing:.12em;color:var(--lime)}.modecard small{display:block;color:var(--muted);font:10px 'DM Mono';margin-top:6px;line-height:1.6}.crosshair{position:absolute;left:50%;top:50%;width:26px;height:26px;transform:translate(-50%,-50%);opacity:.8}.crosshair:before,.crosshair:after{content:'';position:absolute;background:rgba(230,255,236,.8)}.crosshair:before{width:1px;height:24px;left:12px;top:1px}.crosshair:after{height:1px;width:24px;top:12px;left:1px}.alert{position:absolute;top:88px;left:50%;transform:translateX(-50%);color:var(--red);font:11px 'DM Mono';letter-spacing:.22em;text-shadow:0 0 16px #f44;opacity:0;transition:opacity .2s}.alert.on{opacity:1}.toast{position:absolute;top:47%;left:50%;transform:translate(-50%,-50%);padding:12px 18px;border:1px solid rgba(200,241,105,.45);background:rgba(12,24,26,.88);color:var(--lime);font:11px 'DM Mono';letter-spacing:.1em;opacity:0;transition:opacity .25s}.toast.show{opacity:1}.mapbox{position:absolute;right:28px;top:94px;width:138px;height:138px;border:1px solid rgba(220,245,232,.2);background:rgba(12,24,26,.76);overflow:hidden}.mapbox canvas{width:100%;height:100%}.maplabel{position:absolute;top:7px;left:8px;font:8px 'DM Mono';letter-spacing:.13em;color:var(--muted)}.center-ui{position:fixed;inset:0;z-index:5;display:grid;place-items:center;background:rgba(8,16,19,.58);backdrop-filter:blur(5px);transition:opacity .35s}.center-ui.hidden{opacity:0;pointer-events:none}.dialog{width:min(500px,calc(100vw - 32px));padding:34px 38px;background:rgba(14,26,29,.96);border:1px solid rgba(200,241,105,.34);box-shadow:0 25px 100px #061012aa;position:relative}.dialog:before{content:'';position:absolute;left:-1px;top:26px;width:3px;height:48px;background:var(--lime)}.kicker{color:var(--lime);font:10px 'DM Mono';letter-spacing:.24em}.dialog h1{font-size:clamp(34px,7vw,54px);line-height:.98;letter-spacing:-.06em;margin:15px 0 12px}.dialog h1 i{font-style:normal;color:var(--lime)}.dialog p{font-size:13px;color:#a8bbb3;line-height:1.7;margin:0 0 23px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;border-top:1px solid #29383a;padding:15px 0 20px;font:10px 'DM Mono';color:var(--muted)}.controls b{display:inline-block;color:var(--ink);font-weight:500;min-width:64px}.startbtn{width:100%;padding:14px;border:0;background:var(--lime);color:#132019;font:700 11px 'DM Mono';letter-spacing:.16em;cursor:pointer;transition:transform .15s,background .15s}.startbtn:hover{transform:translateY(-2px);background:#ddff91}.corner{position:absolute;right:38px;top:36px;color:#4f6260;font:9px 'DM Mono';letter-spacing:.12em}.touch{display:none;pointer-events:none}.touch button{pointer-events:auto;border:1px solid #d5f7df55;background:#0e1b20a8;color:#e7f2eb;border-radius:50%;backdrop-filter:blur(5px);font:10px 'DM Mono';touch-action:none}.stick{position:fixed;z-index:4;bottom:30px;left:26px;width:112px;height:112px;border-radius:50%;display:none;background:#d5f7df15;border:1px solid #d5f7df40;touch-action:none}.stick:after{content:'';position:absolute;inset:34px;border-radius:50%;background:#c8f16955;border:1px solid #c8f16999}.touchbtn{position:fixed;z-index:4;right:25px;bottom:35px;width:64px;height:64px;display:none}.togglebtn{position:fixed;z-index:4;right:96px;bottom:47px;width:54px;height:40px;border-radius:5px!important;display:none}.mobilehint{display:none}@media(max-width:700px){.topbar{top:14px;left:14px}.righttop{top:15px;right:14px}.chip{font-size:8px;padding:8px}.objective{top:65px;left:14px;min-width:170px;padding:9px 11px}.objective strong{font-size:12px}.objective small{font-size:8px}.mapbox{top:68px;right:14px;width:105px;height:105px}.stats{left:14px;bottom:14px;width:172px;padding:10px}.modecard{right:14px;bottom:14px;min-width:140px;padding:10px}.modecard small{font-size:8px}.statrow{font-size:8px}.meter{margin-bottom:8px}.stick,.touchbtn,.togglebtn{display:block}.dialog{padding:30px 26px}.corner{right:26px;top:28px}.controls{font-size:9px}.alert{top:75px}.touchbtn{bottom:42px}.togglebtn{bottom:53px}}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas><div class="scan"></div><div class="vignette"></div>
+<div class="hud">
+ <div class="topbar"><div class="brandmark"><span>LL</span></div><div class="brand">LAST LIGHT<small>FIELD OPERATIONS / 09:17 PM</small></div></div>
+ <div class="righttop"><div class="chip">DAY <b>04</b></div><div class="chip">SECTOR <b>07—WEST</b></div></div>
+ <div class="objective"><div class="eyebrow">Survive the night</div><strong id="objective">Reach the safe zone</strong><small id="subobjective">Find the extraction beacon · 180m</small></div>
+ <div class="mapbox"><div class="maplabel">LOCAL SCAN</div><canvas id="minimap" width="138" height="138"></canvas></div>
+ <div class="alert" id="alert">◉ &nbsp; HOSTILE LOCK // INCOMING</div><div class="crosshair" id="crosshair" style="display:none"></div><div class="toast" id="toast"></div>
+ <div class="stats"><div class="statrow"><span>VITALS</span><strong id="hpnum">100</strong></div><div class="meter"><div class="fill health" id="hpbar"></div></div><div class="statrow"><span>STAMINA</span><strong id="stnum">100</strong></div><div class="meter"><div class="fill" id="stbar"></div></div><div class="statrow"><span id="resourceLabel">THREAT LEVEL</span><strong id="resource">LOW</strong></div></div>
+ <div class="modecard"><strong id="modeTitle">ON FOOT</strong><small id="modeHelp">WASD MOVE · SHIFT SPRINT<br>V DEPLOY FPV · E HIDE</small></div>
+</div>
+<div class="center-ui" id="overlay"><div class="dialog"><div class="corner">FIELD NOTE 04.17</div><div class="kicker">NIGHT SHIFT / CITY GRID 07</div><h1>LAST<br><i>LIGHT.</i></h1><p>The city is under drone patrol. Get to the extraction beacon, stay out of sight, and make every flight count. Your drone can take a patrol unit with it.</p><div class="controls"><div><b>W A S D</b> move / steer</div><div><b>SHIFT</b> sprint / boost</div><div><b>V</b> swap control</div><div><b>E</b> hide / take cover</div><div><b>MOUSE</b> aim / look</div><div><b>SPACE</b> detonate drone</div></div><button class="startbtn" id="start">ENTER THE CITY &nbsp; →</button></div></div>
+<div class="stick" id="stick"></div><button class="touchbtn" id="sprintBtn">RUN</button><button class="togglebtn" id="toggleBtn">SWAP</button>
+<script>
+(() => {
+'use strict';
+const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),mini=document.getElementById('minimap'),mctx=mini.getContext('2d');
+const ui={overlay:document.getElementById('overlay'),start:document.getElementById('start'),hp:document.getElementById('hpbar'),st:document.getElementById('stbar'),hpnum:document.getElementById('hpnum'),stnum:document.getElementById('stnum'),resource:document.getElementById('resource'),resourceLabel:document.getElementById('resourceLabel'),mode:document.getElementById('modeTitle'),help:document.getElementById('modeHelp'),alert:document.getElementById('alert'),objective:document.getElementById('objective'),sub:document.getElementById('subobjective'),toast:document.getElementById('toast'),crosshair:document.getElementById('crosshair')};
+let W=innerWidth,H=innerHeight,DPR=Math.min(devicePixelRatio||1,2),last=0,running=false,gameOver=false,frame=0,toastTimer=0,keys={},mouse={x:W/2,y:H/2,down:false},touchMove={x:0,y:0},sprinting=false,touchSprint=false;
+const world={w:2200,h:1800,road:190,block:410};
+const player={x:470,y:900,r:12,angle:0,hp:100,stamina:100,hidden:false,mode:'walk',battery:100,droneX:470,droneY:900,droneAngle:0,droneActive:false,invuln:0};
+let buildings=[],bushes=[],people=[],enemies=[],particles=[],beacon={x:1800,y:250,r:22},cam={x:0,y:0};
+const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),dist=(a,b,c,d)=>Math.hypot(c-a,d-b),angleTo=(a,b,c,d)=>Math.atan2(d-b,c-a);
+function resize(){W=innerWidth;H=innerHeight;DPR=Math.min(devicePixelRatio||1,2);canvas.width=W*DPR;canvas.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0)}addEventListener('resize',resize);resize();
+function makeCity(){
+ buildings=[];bushes=[];
+ const block=world.block,road=world.road;
+ // streets and block lots; keep a central extraction approach open
+ for(let y=70;y<world.h-120;y+=block+road) for(let x=70;x<world.w-100;x+=block+road){
+  const w=rand(255,330),h=rand(235,315),bx=x+rand(20,65),by=y+rand(15,60);
+  buildings.push({x:bx,y:by,w,h,tone:Math.floor(rand(0,4)),roof:rand(0,1),doorSide:Math.random()<.5?'south':'east',doorX:bx+rand(45,w-45),doorY:by+h+8});
+  for(let i=0;i<5;i++)bushes.push({x:bx+rand(8,w-8),y:by+h+rand(12,35),r:rand(10,17)});
+ }
+ // intentional safe cover near start and extraction
+ bushes.push({x:535,y:885,r:18},{x:1710,y:280,r:20},{x:1450,y:1350,r:18},{x:900,y:520,r:16});
+}
+function circleRect(x,y,r,b){const cx=clamp(x,b.x,b.x+b.w),cy=clamp(y,b.y,b.y+b.h);return dist(x,y,cx,cy)<r}
+function blocked(x,y,r){return x<r||y<r||x>world.w-r||y>world.h-r||buildings.some(b=>circleRect(x,y,r,b))}
+function reset(){
+ player.x=470;player.y=900;player.hp=100;player.stamina=100;player.angle=0;player.hidden=false;player.mode='walk';player.battery=100;player.droneX=470;player.droneY=900;player.droneAngle=0;player.droneActive=false;player.invuln=0;
+ people=[];enemies=[];particles=[];frame=0;gameOver=false;beacon={x:1800,y:250,r:22};
+ for(let i=0;i<18;i++)people.push({x:rand(300,1900),y:rand(180,1600),a:rand(0,Math.PI*2),speed:rand(20,39),turn:rand(1,4),color:['#e6b98a','#99b7a5','#c6a9da','#d9d4a0'][i%4]});
+ for(let i=0;i<7;i++)enemies.push({x:rand(280,1930),y:rand(180,1600),a:rand(0,Math.PI*2),baseA:rand(0,Math.PI*2),speed:rand(32,48),state:'patrol',alert:0,fire:0,r:13,orbit:rand(0,Math.PI*2)});
+ makeCity();camera();updateHud();
+}
+function camera(){const target=player.mode==='drone'&&player.droneActive?player:{x:player.x,y:player.y};cam.x=clamp(target.x-W/2,0,world.w-W);cam.y=clamp(target.y-H/2,0,world.h-H)}
+function toast(msg){ui.toast.textContent=msg;ui.toast.classList.add('show');toastTimer=2.2}
+function emit(x,y,color,n=12,power=100){for(let i=0;i<n;i++){let a=rand(0,Math.PI*2),s=rand(power*.25,power);particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:rand(.35,.8),max:.8,color,r:rand(2,5)})}}
+function explode(x,y,r,source){emit(x,y,'#ffb45c',34,180);emit(x,y,'#fff0c4',12,100);for(let i=0;i<enemies.length;i++){const e=enemies[i];if(dist(x,y,e.x,e.y)<r+18){e.state='down';e.down=1.1;emit(e.x,e.y,'#ff685f',12,80)}}if(source==='player'){if(dist(x,y,player.x,player.y)<r+15)damage(30);toast('PATROL UNIT NEUTRALIZED');}}
+function damage(amount){if(player.invuln>0||player.hidden)return;player.hp=Math.max(0,player.hp-amount);player.invuln=.45;emit(player.x,player.y,'#ff665e',6,80);if(player.hp<=0){gameOver=true;running=false;setTimeout(()=>{ui.overlay.classList.remove('hidden');document.querySelector('.dialog .kicker').textContent='SIGNAL LOST / RUN ENDED';document.querySelector('.dialog h1').innerHTML='NIGHT<br><i>FALLS.</i>';document.querySelector('.dialog p').textContent='The patrols found you. The city will still be here tomorrow.';ui.start.textContent='TRY AGAIN  →'},650)}}
+function hideToggle(){if(player.mode!=='walk')return;let nearBuilding=buildings.some(b=>dist(player.x,player.y,b.doorX,b.doorY)<43);let nearBush=bushes.some(b=>dist(player.x,player.y,b.x,b.y)<b.r+24);if(player.hidden){player.hidden=false;toast('COVER LEFT');}else if(nearBuilding||nearBush){player.hidden=true;toast(nearBuilding?'INSIDE / SIGNAL MASKED':'BUSH COVER / SIGNAL MASKED')}else toast('NO COVER NEARBY');}
+function toggleMode(){if(!running||gameOver)return;if(player.mode==='walk'){player.hidden=false;player.mode='drone';player.droneActive=true;player.droneX=player.x;player.droneY=player.y;player.droneAngle=player.angle;toast('FPV LINK ESTABLISHED')}else{player.mode='walk';player.droneActive=false;player.x=clamp(player.droneX,20,world.w-20);player.y=clamp(player.droneY,20,world.h-20);toast('CONTROL RETURNED')}}
+function detonateDrone(){if(player.mode!=='drone'||!player.droneActive)return;explode(player.droneX,player.droneY,112,'player');player.droneActive=false;player.mode='walk';player.x=clamp(player.droneX,20,world.w-20);player.y=clamp(player.droneY,20,world.h-20);player.battery=Math.max(0,player.battery-25);toast('DRONE PAYLOAD DETONATED')}
+function activate(){if(running)return;reset();running=true;last=performance.now();ui.overlay.classList.add('hidden');document.querySelector('.dialog .kicker').textContent='NIGHT SHIFT / CITY GRID 07';document.querySelector('.dialog h1').innerHTML='LAST<br><i>LIGHT.</i>';document.querySelector('.dialog p').textContent='The city is under drone patrol. Get to the extraction beacon, stay out of sight, and make every flight count. Your drone can take a patrol unit with it.';ui.start.textContent='ENTER THE CITY  →';requestAnimationFrame(loop)}
+ui.start.addEventListener('click',activate);
+function drawGround(){
+ ctx.fillStyle='#182a2c';ctx.fillRect(0,0,W,H);
+ // asphalt grid, broad avenues and sidewalks
+ const step=world.block+world.road;ctx.fillStyle='#263536';
+ for(let x=0;x<world.w;x+=step)ctx.fillRect(x-cam.x- world.road/2, -cam.y,world.road,world.h);
+ for(let y=0;y<world.h;y+=step)ctx.fillRect(-cam.x,y-cam.y,world.w,world.road);
+ // asphalt flecks
+ for(let i=0;i<180;i++){const x=((i*193+71)%world.w)-cam.x,y=((i*277+31)%world.h)-cam.y;if(x>-5&&x<W+5&&y>-5&&y<H+5){ctx.fillStyle=i%3?'#344344':'#40504d';ctx.globalAlpha=.22;ctx.fillRect(x,y,rand(1,3),rand(1,3));}}ctx.globalAlpha=1;
+ // road center lines and crossings
+ ctx.setLineDash([18,18]);ctx.lineWidth=2;ctx.strokeStyle='#9eaa8b';ctx.globalAlpha=.45;
+ for(let x=world.road/2;x<world.w;x+=step){ctx.beginPath();ctx.moveTo(x-cam.x,0);ctx.lineTo(x-cam.x,H);ctx.stroke()}
+ for(let y=world.road/2;y<world.h;y+=step){ctx.beginPath();ctx.moveTo(0,y-cam.y);ctx.lineTo(W,y-cam.y);ctx.stroke()}ctx.setLineDash([]);ctx.globalAlpha=1;
+ // sidewalks around each lot
+ for(const b of buildings){const x=b.x-cam.x,y=b.y-cam.y;if(x+b.w<-40||y+b.h<-40||x>W+40||y>H+40)continue;ctx.fillStyle='#68726a';ctx.globalAlpha=.7;ctx.fillRect(x-9,y-9,b.w+18,b.h+18);ctx.globalAlpha=1;ctx.fillStyle='#344443';ctx.fillRect(x-4,y-4,b.w+8,b.h+8);}
+}
+function drawBush(b){const x=b.x-cam.x,y=b.y-cam.y;if(x<-50||y<-50||x>W+50||y>H+50)return;ctx.fillStyle='#101c1b';ctx.beginPath();ctx.ellipse(x+3,y+5,b.r*1.25,b.r*.85,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#355a43';ctx.beginPath();ctx.arc(x,y,b.r,0,Math.PI*2);ctx.fill();ctx.fillStyle='#4b7552';ctx.beginPath();ctx.arc(x-b.r*.22,y-b.r*.25,b.r*.55,0,Math.PI*2);ctx.fill();ctx.fillStyle='#66845a';ctx.beginPath();ctx.arc(x+b.r*.27,y-b.r*.3,b.r*.27,0,Math.PI*2);ctx.fill()}
+function drawBuilding(b){const x=b.x-cam.x,y=b.y-cam.y;if(x+b.w<-60||y+b.h<-60||x>W+60||y>H+60)return;
+ const tones=[['#64706a','#859084','#414e4b'],['#59686b','#829092','#35474a'],['#786d62','#a2937f','#504d48'],['#5d6863','#77867b','#3e4b47']][b.tone];
+ ctx.fillStyle='#111b1b';ctx.fillRect(x+8,y+12,b.w,b.h);ctx.fillStyle='#758078';ctx.fillRect(x-4,y-4,b.w+8,b.h+8);ctx.fillStyle=tones[0];ctx.fillRect(x,y,b.w,b.h);
+ // roof geometry and rooftop units
+ ctx.fillStyle=tones[1];ctx.fillRect(x+9,y+9,b.w-18,b.h-18);ctx.fillStyle=tones[0];ctx.fillRect(x+18,y+18,b.w-36,b.h-36);
+ ctx.strokeStyle='#a5a58b';ctx.globalAlpha=.35;ctx.lineWidth=2;ctx.strokeRect(x+14,y+14,b.w-28,b.h-28);ctx.globalAlpha=1;
+ ctx.fillStyle=tones[2];ctx.fillRect(x+b.w*.16,y+b.h*.18,b.w*.25,b.h*.2);ctx.fillRect(x+b.w*.58,y+b.h*.57,b.w*.24,b.h*.21);
+ ctx.fillStyle='#9ca18c';ctx.fillRect(x+b.w*.2,y+b.h*.22,b.w*.15,b.h*.12);ctx.fillStyle='#4a5751';ctx.fillRect(x+b.w*.63,y+b.h*.62,b.w*.14,b.h*.12);
+ // HVAC details
+ for(let i=0;i<3;i++){ctx.fillStyle=i===1?'#52605d':'#394946';ctx.fillRect(x+b.w*.46+i*10,y+b.h*.3,7,15);ctx.fillStyle='#869087';ctx.fillRect(x+b.w*.46+i*10,y+b.h*.3,7,2)}
+ // doorway / safe entry marker
+ const dx=b.doorX-cam.x,dy=b.doorY-cam.y;ctx.fillStyle='#c8f169';ctx.globalAlpha=.75;ctx.fillRect(dx-7,dy-5,14,4);ctx.globalAlpha=1;
+}
+function drawPerson(p,isPlayer=false){const x=p.x-cam.x,y=p.y-cam.y;if(x<-40||y<-40||x>W+40||y>H+40)return;ctx.fillStyle='#0b1314';ctx.beginPath();ctx.ellipse(x+2,y+7,8,5,0,0,Math.PI*2);ctx.fill();
+ if(isPlayer&&player.hidden){ctx.globalAlpha=.28;ctx.fillStyle='#c8f169';ctx.beginPath();ctx.arc(x,y,17,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}
+ ctx.fillStyle=isPlayer?(player.invuln>0?'#fff':'#c8f169'):p.color;ctx.beginPath();ctx.arc(x,y-2,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#172321';ctx.beginPath();ctx.arc(x+Math.cos(p.a||player.angle)*2,y-3+Math.sin(p.a||player.angle)*2,2,0,Math.PI*2);ctx.fill();
+ if(isPlayer){ctx.strokeStyle='#c8f169';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(player.angle)*15,y+Math.sin(player.angle)*15);ctx.stroke();if(player.hidden){ctx.font='9px DM Mono';ctx.fillStyle='#c8f169';ctx.fillText('HIDDEN',x-20,y-19)}}
+}
+function drawEnemy(e){if(e.state==='down')return;const x=e.x-cam.x,y=e.y-cam.y;if(x<-50||y<-50||x>W+50||y>H+50)return;
+ ctx.fillStyle='#0b1215';ctx.globalAlpha=.45;ctx.beginPath();ctx.ellipse(x+4,y+11,13,6,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+ ctx.save();ctx.translate(x,y-14);ctx.rotate(e.a);ctx.fillStyle=e.state==='chase'?'#ff514e':'#d7e1d8';ctx.fillRect(-9,-5,18,10);ctx.fillStyle='#293538';ctx.fillRect(-13,-3,26,6);ctx.fillStyle=e.state==='chase'?'#ff403d':'#93eee1';ctx.beginPath();ctx.arc(0,0,4,0,Math.PI*2);ctx.fill();for(const s of [-1,1]){ctx.strokeStyle='#9eaaa2';ctx.beginPath();ctx.moveTo(s*5,0);ctx.lineTo(s*13, s*7);ctx.stroke();ctx.fillStyle='#d5dfd9';ctx.beginPath();ctx.arc(s*13,s*7,3,0,Math.PI*2);ctx.fill()}ctx.restore();
+ if(e.state==='chase'){ctx.strokeStyle='#ff544e';ctx.globalAlpha=.45;ctx.beginPath();ctx.arc(x,y-14,21+Math.sin(frame*.2)*3,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;}
+}
+function drawBeacon(){const x=beacon.x-cam.x,y=beacon.y-cam.y;if(x<-80||y<-80||x>W+80||y>H+80)return;const pulse=1+Math.sin(frame*.08)*.1;ctx.strokeStyle='#c8f169';ctx.globalAlpha=.55;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,31*pulse,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;ctx.fillStyle='#c8f169';ctx.fillRect(x-3,y-20,6,40);ctx.beginPath();ctx.arc(x,y-20,5,0,Math.PI*2);ctx.fill();ctx.font='10px DM Mono';ctx.textAlign='center';ctx.fillText('EXTRACTION',x,y+43);ctx.textAlign='left'}
+function drawTopDown(){drawGround();drawBeacon();for(const b of buildings)drawBuilding(b);for(const b of bushes)drawBush(b);for(const p of people)drawPerson(p);for(const e of enemies)drawEnemy(e);if(player.mode==='walk')drawPerson(player,true);for(const q of particles){ctx.globalAlpha=clamp(q.life/q.max,0,1);ctx.fillStyle=q.color;ctx.beginPath();ctx.arc(q.x-cam.x,q.y-cam.y,q.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}}
+function drawFPV(){
+ const px=player.droneX,py=player.droneY,a=player.droneAngle,fx=Math.cos(a),fy=Math.sin(a),sx=-fy,sy=fx,horizon=H*.37;
+ const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#1c3135');sky.addColorStop(.38,'#526662');sky.addColorStop(.39,'#303e3b');sky.addColorStop(1,'#172323');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+ // distant city silhouette
+ for(let i=0;i<18;i++){const x=((i*173+frame*.12)% (W+160))-80,hh=rand(35,115);ctx.fillStyle=i%2?'#253638':'#304342';ctx.fillRect(x,horizon-hh,rand(32,90),hh+10)}
+ // road vanishing perspective
+ const roadTop=W*.11,roadBottom=W*.86;ctx.fillStyle='#303c3a';ctx.beginPath();ctx.moveTo(W/2-roadTop*.5,horizon);ctx.lineTo(W/2+roadTop*.5,horizon);ctx.lineTo(W/2+roadBottom*.5,H);ctx.lineTo(W/2-roadBottom*.5,H);ctx.closePath();ctx.fill();
+ ctx.strokeStyle='#c2bb8a';ctx.globalAlpha=.6;ctx.lineWidth=2;ctx.setLineDash([25,22]);ctx.beginPath();ctx.moveTo(W/2,horizon);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+ // perspective curb / lane edge
+ for(const sign of [-1,1]){ctx.strokeStyle='#9ca18c';ctx.globalAlpha=.5;ctx.beginPath();ctx.moveTo(W/2+sign*roadTop*.5,horizon);ctx.lineTo(W/2+sign*roadBottom*.5,H);ctx.stroke();ctx.globalAlpha=1;}
+ const project=(x,y)=>{const dx=x-px,dy=y-py,depth=dx*fx+dy*fy,side=dx*sx+dy*sy;if(depth<8)return null;const focal=Math.min(W,H)*.8,scale=focal/depth;return {x:W/2+side*scale,y:horizon+focal*1.1/depth,scale,depth}};
+ // buildings and street props in camera-relative perspective, nearest first
+ let objects=[];for(const b of buildings){const p=project(b.x+b.w/2,b.y+b.h/2);if(p&&p.depth<720)objects.push({type:'building',p,b})}for(const b of bushes){const p=project(b.x,b.y);if(p&&p.depth<470)objects.push({type:'bush',p,b})}for(const e of enemies){if(e.state==='down')continue;const p=project(e.x,e.y);if(p&&p.depth<600)objects.push({type:'enemy',p,e})}for(const n of people){const p=project(n.x,n.y);if(p&&p.depth<450)objects.push({type:'person',p,n})}objects.sort((a,b)=>b.p.depth-a.p.depth);
+ for(const o of objects){const {p}=o;if(p.x<-200||p.x>W+200)continue;if(o.type==='building'){const b=o.b,w=clamp(b.w*p.scale*.62,8,W*.7),height=clamp(b.h*p.scale*.7,6,W*.7),rise=clamp(p.scale*78,5,H*.75),ground=p.y;ctx.fillStyle='#111b1b';ctx.fillRect(p.x-w/2,ground-rise,w,rise);ctx.fillStyle=['#687971','#65777a','#87796a','#65736d'][b.tone];ctx.fillRect(p.x-w/2,ground-rise,w,rise);ctx.fillStyle='#a5a491';ctx.fillRect(p.x-w/2,ground-rise,w,Math.max(3,rise*.05));ctx.fillStyle='#303f3c';for(let j=0;j<Math.min(5,Math.floor(w/18));j++)ctx.fillRect(p.x-w/2+5+j*18,ground-rise+rise*.35,Math.max(3,w*.035),Math.max(4,rise*.22));}
+ else if(o.type==='bush'){const r=clamp(p.scale*13,2,70);ctx.fillStyle='#355a43';ctx.beginPath();ctx.ellipse(p.x,p.y-r*.4,r*1.2,r*.65,0,0,Math.PI*2);ctx.fill();}
+ else if(o.type==='enemy'){const s=clamp(p.scale*13,3,44);ctx.fillStyle='#ff5a52';ctx.fillRect(p.x-s/2,p.y-s,s,s*.45);ctx.fillStyle='#e7e4c9';ctx.beginPath();ctx.arc(p.x,p.y-s/2,s*.32,0,Math.PI*2);ctx.fill();}
+ else {const s=clamp(p.scale*11,2,32);ctx.fillStyle=o.n.color;ctx.beginPath();ctx.arc(p.x,p.y-s*.55,s*.27,0,Math.PI*2);ctx.fill();ctx.fillRect(p.x-s*.18,p.y-s*.5,s*.36,s*.5);}}
+ // Drone FPV framing, optic and scan reticle
+ const shade=ctx.createRadialGradient(W/2,H*.5,Math.min(W,H)*.2,W/2,H*.5,Math.max(W,H)*.75);shade.addColorStop(0,'transparent');shade.addColorStop(1,'rgba(2,8,11,.64)');ctx.fillStyle=shade;ctx.fillRect(0,0,W,H);
+ ctx.strokeStyle='rgba(200,241,105,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(W/2,H/2,16,0,Math.PI*2);ctx.moveTo(W/2-26,H/2);ctx.lineTo(W/2-9,H/2);ctx.moveTo(W/2+9,H/2);ctx.lineTo(W/2+26,H/2);ctx.moveTo(W/2,H/2-26);ctx.lineTo(W/2,H/2-9);ctx.moveTo(W/2,H/2+9);ctx.lineTo(W/2,H/2+26);ctx.stroke();
+ ctx.fillStyle='rgba(8,20,21,.75)';ctx.fillRect(0,H-48,W,48);ctx.fillStyle='#c8f169';ctx.font='10px DM Mono';ctx.fillText('FPV / MANUAL CONTROL',18,H-20);ctx.textAlign='right';ctx.fillStyle='#d9e7dd';ctx.fillText(`ALT 12M   SPD ${Math.round(Math.hypot((keys.KeyW?1:0),(keys.KeyA?1:0))*260)} KM/H`,W-18,H-20);ctx.textAlign='left';
+ // battery visual overlay
+ ctx.fillStyle='rgba(240,248,237,.4)';ctx.fillRect(W/2-58,28,116,3);ctx.fillStyle='#c8f169';ctx.fillRect(W/2-58,28,116*player.battery/100,3);
+}
+function hasLineOfSight(x1,y1,x2,y2){const n=Math.ceil(dist(x1,y1,x2,y2)/24);for(let i=1;i<n;i++){const x=x1+(x2-x1)*i/n,y=y1+(y2-y1)*i/n;if(buildings.some(b=>x>b.x&&x<b.x+b.w&&y>b.y&&y<b.y+b.h))return false}return true}
+let audioCtx=null;function beep(){try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type='square';osc.frequency.setValueAtTime(740,audioCtx.currentTime);osc.frequency.exponentialRampToValueAtTime(370,audioCtx.currentTime+.17);gain.gain.setValueAtTime(.055,audioCtx.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.2);osc.connect(gain);gain.connect(audioCtx.destination);osc.start();osc.stop(audioCtx.currentTime+.21)}catch(e){}}
+function step(dt){
+ frame+=dt*60;if(toastTimer>0){toastTimer-=dt;if(toastTimer<=0)ui.toast.classList.remove('show')}if(player.invuln>0)player.invuln-=dt;
+ // civilians wander around the block; turn at intervals
+ for(const n of people){n.turn-=dt;if(n.turn<=0){n.turn=rand(1.4,4);n.a+=rand(-1.5,1.5)}const nx=n.x+Math.cos(n.a)*n.speed*dt,ny=n.y+Math.sin(n.a)*n.speed*dt;if(blocked(nx,ny,6)){n.a+=Math.PI*rand(.55,1.45)}else{n.x=nx;n.y=ny}}
+ let moving=false;
+ if(player.mode==='walk'){
+  let ix=(keys.KeyD?1:0)-(keys.KeyA?1:0)+touchMove.x,iy=(keys.KeyS?1:0)-(keys.KeyW?1:0)+touchMove.y;const mag=Math.hypot(ix,iy);if(mag>1){ix/=mag;iy/=mag}moving=mag>.08;
+  if(mouse.x!==W/2||mouse.y!==H/2)player.angle=angleTo(W/2,H/2,mouse.x,mouse.y);
+  else if(moving)player.angle=Math.atan2(iy,ix);
+  sprinting=(keys.ShiftLeft||keys.ShiftRight||touchSprint)&&moving&&player.stamina>0;
+  const speed=sprinting?185:112;if(moving){const nx=player.x+ix*speed*dt,ny=player.y+iy*speed*dt;if(!blocked(nx,player.y,player.r))player.x=nx;if(!blocked(player.x,ny,player.r))player.y=ny;}
+  if(player.hidden&&moving)player.hidden=false;
+  player.stamina=clamp(player.stamina+(sprinting?-25:14)*dt,0,100);
+  if(!player.droneActive)player.battery=clamp(player.battery+8*dt,0,100);
+ }else if(player.mode==='drone'&&player.droneActive){
+  const turn=((keys.KeyD?1:0)-(keys.KeyA?1:0)+touchMove.x)*2.25*dt;player.droneAngle+=turn;
+  const boost=keys.ShiftLeft||keys.ShiftRight||sprinting;let thrust=((keys.KeyW?1:0)-(keys.KeyS?1:0))* (boost?350:245),strafe=((keys.KeyE?1:0)-(keys.KeyQ?1:0))*155;
+  let dx=Math.cos(player.droneAngle)*thrust-Math.sin(player.droneAngle)*strafe,dy=Math.sin(player.droneAngle)*thrust+Math.cos(player.droneAngle)*strafe;
+  if(touchMove.y<-.1){dx+=Math.cos(player.droneAngle)*240*(-touchMove.y);dy+=Math.sin(player.droneAngle)*240*(-touchMove.y)}
+  const nx=player.droneX+dx*dt,ny=player.droneY+dy*dt;moving=Math.abs(thrust)+Math.abs(strafe)>0;
+  const hit=blocked(nx,ny,8)||bushes.some(b=>dist(nx,ny,b.x,b.y)<b.r+5)||people.some(n=>dist(nx,ny,n.x,n.y)<10)||enemies.some(e=>e.state!=='down'&&dist(nx,ny,e.x,e.y)<15);
+  if(hit){explode(player.droneX,player.droneY,112,'player');player.droneActive=false;player.mode='walk';player.x=clamp(player.droneX,20,world.w-20);player.y=clamp(player.droneY,20,world.h-20);player.battery=Math.max(0,player.battery-25);toast('IMPACT // PAYLOAD DETONATED')}
+  else{player.droneX=nx;player.droneY=ny}
+  player.battery=Math.max(0,player.battery-8.3*dt);if(player.battery<=0){player.droneActive=false;player.mode='walk';player.x=player.droneX;player.y=player.droneY;toast('BATTERY EMPTY / LINK LOST')}
+ }
+ // patrol vision and pursuit. A covered character cannot be acquired.
+ for(const e of enemies){if(e.state==='down'){e.down-=dt;if(e.down<=0){e.x=rand(250,1950);e.y=rand(160,1640);e.state='patrol'}continue}
+  const tx=player.mode==='drone'&&player.droneActive?player.droneX:player.x,ty=player.mode==='drone'&&player.droneActive?player.droneY:player.y,canSee=!(player.mode==='walk'&&player.hidden)&&hasLineOfSight(e.x,e.y,tx,ty),d=dist(e.x,e.y,tx,ty);
+  if(canSee&&d<430){if(e.state!=='chase'){toast('PATROL ACQUIRED YOUR POSITION');beep()}e.state='chase';e.alert=1;e.a=angleTo(e.x,e.y,tx,ty);}
+  if(e.state==='chase'&&canSee){e.a=angleTo(e.x,e.y,tx,ty);const sp=e.speed*3.1;e.x+=Math.cos(e.a)*sp*dt;e.y+=Math.sin(e.a)*sp*dt;if(d<20){emit(e.x,e.y,'#ff665e',22,145);if(player.mode==='walk')damage(35);else{explode(player.droneX,player.droneY,100,'player');player.droneActive=false;player.mode='walk'}e.state='patrol';e.x+=rand(-140,140);e.y+=rand(-140,140)}}
+  else{e.orbit+=dt*.35;e.a=e.baseA+Math.sin(e.orbit)*.5;e.x+=Math.cos(e.a)*e.speed*dt;e.y+=Math.sin(e.a)*e.speed*dt;if(e.x<80||e.x>world.w-80)e.baseA=Math.PI-e.baseA;if(e.y<80||e.y>world.h-80)e.baseA=-e.baseA;}
+ }
+ if(dist(player.x,player.y,beacon.x,beacon.y)<42&&player.mode==='walk'&&!gameOver){gameOver=true;running=false;document.querySelector('.dialog .kicker').textContent='EXTRACTION COMPLETE / SECTOR 07';document.querySelector('.dialog h1').innerHTML='YOU MADE<br><i>IT OUT.</i>';document.querySelector('.dialog p').textContent='The safe zone is secure. You survived the night shift with '+Math.max(0,Math.floor(player.hp))+' vitals remaining.';ui.start.textContent='RUN IT AGAIN  →';ui.overlay.classList.remove('hidden')}
+ for(let i=particles.length-1;i>=0;i--){const q=particles[i];q.life-=dt;q.x+=q.vx*dt;q.y+=q.vy*dt;q.vx*=.96;q.vy*=.96;if(q.life<=0)particles.splice(i,1)}camera();
+}
